@@ -10,6 +10,8 @@ let text
 let rad;
 let ver = "false";
 let res;
+let x;
+let bomb = [];
 
 // --- DIV ---
 
@@ -63,6 +65,13 @@ function add(radq, counter) {
     document.getElementById("grid").appendChild(div);
 }
 
+function bomb_creation(tot, counter) {
+    do {
+        x = Math.floor(Math.random()* 100 + 1);
+    } while (x > max);
+    bomb.push(x);
+}
+
 // --- Difficulties ---
 
 function easy() {
@@ -70,7 +79,11 @@ function easy() {
     rad = Math.sqrt(max);
     for(i = 1; i <= max; i++) {
         add(rad, i);
+    };
+    for(i = 0; i < 16; i++) {
+        bomb_creation(max, i);
     }
+    console.log(bomb);
 }
 
 function normal() {
@@ -78,7 +91,7 @@ function normal() {
     rad = Math.sqrt(max);
     for(i = 1; i <= max; i++) {
         add(rad, i);
-    }
+    };
 }
 
 function hard() {
@@ -86,5 +99,5 @@ function hard() {
     rad = Math.sqrt(max);
     for(i = 1; i <= max; i++) {
         add(rad, i);
-    }
+    };
 }
