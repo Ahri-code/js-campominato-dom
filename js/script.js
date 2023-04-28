@@ -12,6 +12,8 @@ let ver = "false";
 let res;
 let x;
 let bomb = [];
+let cell = [];
+let bg;
 
 // --- DIV ---
 
@@ -25,6 +27,7 @@ button.addEventListener("click", start);
 // --- FUNCTIONS ---
 
 function start() {
+    bomb = [];
     if (ver == "true") {
         document.getElementById("grid").innerHTML = ""
         ver = "false";
@@ -41,6 +44,7 @@ function start() {
         else if (difficulty_sel == 'hard') {
             hard();
         }
+        game(max);
         ver = "true";
     }
 }
@@ -68,8 +72,11 @@ function add(radq, counter) {
 function bomb_creation(tot, counter) {
     do {
         x = Math.floor(Math.random()* 100 + 1);
-    } while (x > max);
-    bomb.push(x);
+        if (x <= max && !bomb.includes(x)) {
+            bomb.push(x);
+            counter++;
+        }
+    } while (counter < 16);
 }
 
 // --- Difficulties ---
@@ -80,10 +87,8 @@ function easy() {
     for(i = 1; i <= max; i++) {
         add(rad, i);
     };
-    for(i = 0; i < 16; i++) {
-        bomb_creation(max, i);
-    }
-    console.log(bomb);
+    i = 0;
+    bomb_creation(max, i);
 }
 
 function normal() {
@@ -92,6 +97,8 @@ function normal() {
     for(i = 1; i <= max; i++) {
         add(rad, i);
     };
+    i = 0;
+    bomb_creation(max, i);
 }
 
 function hard() {
@@ -100,4 +107,24 @@ function hard() {
     for(i = 1; i <= max; i++) {
         add(rad, i);
     };
+    i = 0;
+    bomb_creation(max, i);
+}
+
+// --- Game ---
+
+function game(tot) {
+    cell = document.getElementsByClassName("square");
+    for (i = 0; i < tot; i++) {
+        cell[i].addEventListener("click", select);
+    }
+}
+
+function select() {
+    if (bomb.includes(i)) {
+        console.log("aaa");
+    }
+    else {
+        console.log("bbb");
+    }
 }
